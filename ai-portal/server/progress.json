@@ -1,0 +1,29 @@
+{
+  "userId": "user_default",
+  "completedDays": [],
+  "streak": 1,
+  "maxStreak": 1,
+  "badges": [
+    "First Step",
+    "High Five"
+  ],
+  "history": [
+    "2025-12-17T15:19:14.451Z",
+    "2025-12-17T15:19:29.211Z",
+    "2025-12-17T15:19:34.528Z",
+    "2025-12-17T15:27:46.497Z",
+    "2025-12-17T15:27:49.494Z",
+    "2025-12-17T15:27:50.902Z",
+    "2025-12-17T15:27:52.584Z",
+    "2025-12-17T15:27:55.663Z"
+  ],
+  "lastActivityDate": "2025-12-17T15:27:55.663Z",
+  "lastUpdated": "2025-12-17T15:28:03.166Z",
+  "externalProfiles": {
+    "github": "MD-SOHAIL-AI",
+    "leetcode": "MOHAMED_SOHAIL",
+    "codechef": "kit28aiml042",
+    "gfg": "kit28bam042",
+    "hackerrank": ""
+  }
+}

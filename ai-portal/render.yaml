@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ai-portal
+    env: docker
+    plan: free
+    branch: main # or master, depending on your git init
+    envVars:
+      - key: PORT
+        value: 8080
