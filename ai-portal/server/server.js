@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+/*
 // --- STATIC FILES FOR DEPLOYMENT ---
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -23,6 +24,7 @@ app.get('*', (req, res, next) => {
     }
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
+*/
 
 // --- DATABASE CONNECTION (DUAL MODE: MONGO or JSON) ---
 const mongoose = require('mongoose');
@@ -124,7 +126,7 @@ const saveProgress = async (data) => {
 const API_KEY = process.env.GOOGLE_API_KEY || "AIzaSyBL4ML4K3qeci6exzIt87Wle8XueOkjqhk";
 
 const chatModel = new ChatGoogleGenerativeAI({
-    model: "gemini-2.5-flash",
+    model: "gemini-1.5-flash",
     apiKey: API_KEY,
     temperature: 0.7,
 });
@@ -159,7 +161,7 @@ app.post('/api/chat', async (req, res) => {
 // Get Progress
 app.get('/api/progress', async (req, res) => {
     try {
-        const data = getJsonData();
+        const data = await getProgress();
         if (!data) {
             return res.json({
                 userId: 'user_default',
@@ -181,7 +183,7 @@ app.post('/api/progress/toggle', async (req, res) => {
     const { dayId } = req.body;
 
     try {
-        let progress = getJsonData();
+        let progress = await getProgress();
 
         // 1. Apply Logic
         const today = new Date();
@@ -228,7 +230,7 @@ app.post('/api/progress/toggle', async (req, res) => {
         progress.lastUpdated = new Date();
 
         // 2. Save State
-        saveJsonData(progress);
+        await saveProgress(progress);
 
         res.json(progress);
 
@@ -249,7 +251,7 @@ app.get('/api/notifications', async (req, res) => {
 app.post('/api/profiles/update', async (req, res) => {
     try {
         const { github, leetcode, codechef, gfg, hackerrank } = req.body;
-        let progress = getJsonData();
+        let progress = await getProgress();
 
         if (!progress) {
             progress = {
@@ -272,7 +274,7 @@ app.post('/api/profiles/update', async (req, res) => {
         if (gfg !== undefined) progress.externalProfiles.gfg = gfg;
         if (hackerrank !== undefined) progress.externalProfiles.hackerrank = hackerrank;
 
-        saveJsonData(progress);
+        await saveProgress(progress);
         res.json(progress);
     } catch (err) {
         console.error("Profile Update Error:", err);
